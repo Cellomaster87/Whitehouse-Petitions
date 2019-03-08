@@ -17,6 +17,8 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(showCredits))
+        
         /* "https://api.whitehouse.gov/v1/petitions.json?signatureCountFloor=10000&limit=100" */
         let urlString: String
             
@@ -51,6 +53,13 @@ class ViewController: UITableViewController {
     func showError() {
         let ac = UIAlertController(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+    }
+    
+    @objc func showCredits() {
+        let ac = UIAlertController(title: "Data source", message: "These petitions come from the \nWe The People API of the Whitehouse", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Thank you!", style: .default, handler: nil))
+        
         present(ac, animated: true)
     }
     

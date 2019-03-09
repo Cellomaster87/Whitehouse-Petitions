@@ -80,11 +80,8 @@ class ViewController: UITableViewController {
             self?.showPetitions(for: filterWord)
             self?.tableView.reloadData()
         }
-        
-//        let resetAction = UIAlertAction(title: "Reset", style: .destructive, handler: resetList)
-        
+
         ac.addAction(filterAction)
-//        ac.addAction(resetAction)
         present(ac, animated: true)
     }
     

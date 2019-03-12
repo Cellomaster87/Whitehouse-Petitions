@@ -43,8 +43,8 @@ class ViewController: UITableViewController {
                     return
                 }
             }
+            self?.showError()
         }
-        showError()
     }
     
     // MARK: - Methods
@@ -55,14 +55,18 @@ class ViewController: UITableViewController {
             petitions = jsonPetitions.results
             filteredPetitions = petitions
             
-            tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+            }
         }
     }
     
     func showError() {
-        let ac = UIAlertController(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            let ac = UIAlertController(title: "Loading error", message: "There was a problem loading the feed; please check your connection and try again.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self?.present(ac, animated: true)
+        }
     }
     
     @objc func showCredits() {

@@ -17,17 +17,16 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        performSelector(inBackground: #selector(fetchJSON), with: nil)
-    }
-    
-    @objc func fetchJSON() {
         let filterButton = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(filterPetitions))
         let resetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetList))
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(showCredits))
         navigationItem.leftBarButtonItems = [filterButton, resetButton]
         
-        
+        performSelector(inBackground: #selector(fetchJSON), with: nil)
+    }
+    
+    @objc func fetchJSON() {
         /* "https://api.whitehouse.gov/v1/petitions.json?signatureCountFloor=10000&limit=100" */
         let urlString: String
         

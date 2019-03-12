@@ -33,16 +33,18 @@ class ViewController: UITableViewController {
             urlString = "https://www.hackingwithswift.com/samples/petitions-2.json"
         }
         
-        // try to convert that string into an URL
-        if let url = URL(string: urlString) {
-            // fetch that from the API
-            if let data = try? Data(contentsOf: url) {
-                parse(json: data)
-                
-                return
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            // try to convert that string into an URL
+            if let url = URL(string: urlString) {
+                // fetch that from the API
+                if let data = try? Data(contentsOf: url) {
+                    self?.parse(json: data)
+                    
+                    return
+                }
             }
-            showError()
         }
+        showError()
     }
     
     // MARK: - Methods

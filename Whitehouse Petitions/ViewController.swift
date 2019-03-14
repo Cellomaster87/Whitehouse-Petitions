@@ -82,15 +82,16 @@ class ViewController: UITableViewController {
         let filterAction = UIAlertAction(title: "Filter", style: .default) {
             [weak self, weak ac] _ in
             guard let filterWord = ac?.textFields?[0].text else { return }
-            self?.showPetitions(for: filterWord)
-            self?.tableView.reloadData()
+            
+            self?.performSelector(inBackground: #selector(self?.showPetitions(for:)), with: filterWord)
+            self?.tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
         }
 
         ac.addAction(filterAction)
         present(ac, animated: true)
     }
     
-    func showPetitions(for filter: String) {
+    @objc func showPetitions(for filter: String) {
         filteredPetitions = petitions.filter { $0.title.contains(filter) }
         print(filteredPetitions)
     }

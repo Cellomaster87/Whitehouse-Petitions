@@ -92,7 +92,7 @@ class ViewController: UITableViewController {
     }
     
     @objc func showPetitions(for filter: String) {
-        filteredPetitions = petitions.filter { $0.title.contains(filter) }
+        filteredPetitions = petitions.filter { $0.title.lowercased().contains(filter) }
         print(filteredPetitions)
     }
     
